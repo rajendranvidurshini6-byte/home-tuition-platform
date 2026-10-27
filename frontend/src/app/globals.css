@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --background-soft: #f8fafc;
+  --navy-deep: #0f172a;    
+  --teal-primary: #0f766e; 
+  --gold-accent: #d97706;  
+  
+  --text-main: #0f172a;
+  --text-light: #475569;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.btn-teal {
+  background-color: var(--teal-primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-teal:hover {
+  background-color: #0d5f58;
+}
+
+.btn-gold {
+  background-color: var(--gold-accent);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+}

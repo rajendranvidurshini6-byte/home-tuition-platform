@@ -1,164 +1,155 @@
 import Link from "next/link";
 
+const myCourses = [
+  { id: 1, name: "O/L Mathematics", teacher: "Mr. Kamal", progress: 85, nextClass: "Today, 4:00 PM", color: "bg-blue-500" },
+  { id: 2, name: "A/L Physics", teacher: "Ms. Nimali", progress: 60, nextClass: "Tomorrow, 2:00 PM", color: "bg-purple-500" },
+  { id: 3, name: "Spoken English", teacher: "Ms. Sarah", progress: 95, nextClass: "Friday, 5:00 PM", color: "bg-teal-500" },
+];
+
+const monthlyMarksheet = [
+  { id: 1, subject: "O/L Mathematics", exam: "Model Paper 1", date: "Oct 15, 2026", marks: "85/100", grade: "A" },
+  { id: 2, subject: "A/L Physics", exam: "Monthly Test", date: "Oct 12, 2026", marks: "72/100", grade: "B" },
+  { id: 3, subject: "Spoken English", exam: "Quiz 1", date: "Oct 10, 2026", marks: "95/100", grade: "A+" },
+];
+
+const attendanceData = [
+  1, 1, 2, 1, 1, 0, 0, 1, 1, 1, 
+  0, 0, 1, 2, 1, 1, 1, 0, 0, 1, 
+  1, 1, 1, 3, 1, 0, 0, 1, 1, 1
+];
+
 export default function StudentDashboard() {
   return (
-    <div className="min-h-screen bg-[var(--background-soft)] flex">
+    <div className="min-h-screen bg-[#f4f7f6] flex">
       
-      {/* 1. Left Sidebar */}
-      <aside className="w-64 bg-[var(--navy-deep)] text-white min-h-screen hidden md:flex flex-col">
-        <div className="p-6 text-2xl font-bold border-b border-gray-700 flex items-center gap-2">
-          <div className="w-8 h-8 bg-[var(--teal-primary)] rounded flex items-center justify-center text-white text-lg">h</div>
-          hometuition<span className="text-[var(--teal-primary)]">.lk</span>
+      {/* Sidebar */}
+      <aside className="w-64 bg-gradient-to-b from-[#0f172a] to-[#1e293b] text-white min-h-screen hidden md:flex flex-col shadow-2xl z-10">
+        <div className="p-6 text-2xl font-bold border-b border-gray-700/50 flex items-center gap-2">
+          <div className="w-9 h-9 bg-gradient-to-tr from-[#0f766e] to-[#14b8a6] rounded-xl flex items-center justify-center text-white text-lg shadow-lg">h</div>
+          <span className="tracking-tight">hometuition<span className="text-[#14b8a6]">.lk</span></span>
         </div>
         
-        <nav className="flex-1 p-4 space-y-2 text-sm">
-          <Link href="/dashboard/student" className="block px-4 py-3 bg-[var(--teal-primary)] rounded-lg font-semibold">
-            Dashboard
+        <nav className="flex-1 p-4 space-y-2 text-sm font-medium mt-4">
+          <Link href="/dashboard/student" className="flex items-center gap-3 px-4 py-3 bg-[#0f766e] rounded-xl font-semibold shadow-lg text-white">
+            <span className="text-lg">📊</span> Dashboard
           </Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">My Courses</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Live Classes</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Assignments</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Exams & Papers</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Progress & Results</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Schedule</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Messages</Link>
-          <Link href="#" className="block px-4 py-3 text-gray-300 hover:bg-gray-800 rounded-lg transition">Settings</Link>
+          <Link href="/dashboard/student/courses" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 rounded-xl transition">
+            <span className="text-lg">📚</span> My Courses
+          </Link>
+          <Link href="/dashboard/student/lms" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 rounded-xl transition">
+            <span className="text-lg">📂</span> LMS & Papers
+          </Link>
+          <Link href="/dashboard/student/live-classes" className="flex items-center gap-3 px-4 py-3 text-gray-400 hover:bg-white/5 rounded-xl transition">
+            <span className="text-lg">🎥</span> Live Classes
+          </Link>
         </nav>
+
+        <div className="p-4 border-t border-gray-700/50">
+          <Link href="/" className="text-center block text-sm text-gray-400 hover:text-white transition">← Back to Website</Link>
+        </div>
       </aside>
 
-      {/* 2. Main Content Area */}
-      <main className="flex-1 p-6 md:p-8">
-        
-        {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+      {/* Main Content */}
+      <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-[var(--navy-deep)]">Good Morning, Nimesha! 👋</h1>
-            <p className="text-sm text-[var(--text-light)]">Keep going! You're making great progress.</p>
+            <h1 className="text-3xl font-extrabold text-[#0f172a]">Good Morning, Nimesha! 👋</h1>
+            <p className="text-[#475569] text-sm">Here is your monthly progress report.</p>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-[var(--navy-deep)]">Nimesha Perera</span>
-            <div className="w-10 h-10 bg-gray-300 rounded-full"></div> {/* Profile Pic Placeholder */}
-          </div>
-        </div>
-
-        {/* Top Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-lg flex items-center justify-center text-xl">📚</div>
-            <div>
-              <p className="text-xs text-gray-500 font-semibold uppercase">Enrolled Courses</p>
-              <h3 className="text-2xl font-bold text-[var(--navy-deep)]">6</h3>
-            </div>
-          </div>
-          <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className="w-12 h-12 bg-green-50 text-green-500 rounded-lg flex items-center justify-center text-xl">✅</div>
-            <div>
-              <p className="text-xs text-gray-500 font-semibold uppercase">Completed Lessons</p>
-              <h3 className="text-2xl font-bold text-[var(--navy-deep)]">28</h3>
-            </div>
-          </div>
-          <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className="w-12 h-12 bg-purple-50 text-purple-500 rounded-lg flex items-center justify-center text-xl">📈</div>
-            <div>
-              <p className="text-xs text-gray-500 font-semibold uppercase">Average Score</p>
-              <h3 className="text-2xl font-bold text-[var(--navy-deep)]">78%</h3>
-            </div>
-          </div>
-          <div className="bg-white p-5 rounded-xl shadow-sm border border-gray-100 flex items-center gap-4">
-            <div className="w-12 h-12 bg-yellow-50 text-yellow-600 rounded-lg flex items-center justify-center text-xl">📅</div>
-            <div>
-              <p className="text-xs text-gray-500 font-semibold uppercase">Attendance</p>
-              <h3 className="text-2xl font-bold text-[var(--navy-deep)]">92%</h3>
-            </div>
+          <div className="flex items-center gap-4 bg-white px-4 py-2 rounded-full shadow-sm border border-gray-100">
+            <span className="text-sm font-bold text-[#0f172a]">Nimesha Perera</span>
+            <div className="w-10 h-10 bg-[#0f766e] text-white rounded-full flex items-center justify-center font-bold">N</div>
           </div>
         </div>
 
-        {/* Middle Section: Live Classes & Progress */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Today's Live Classes (Left Side) */}
-          <div className="md:col-span-2 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-bold text-[var(--navy-deep)]">Today's Live Classes</h2>
-              <Link href="#" className="text-sm text-[var(--teal-primary)] font-semibold hover:underline">View All →</Link>
-            </div>
-            
-            <div className="space-y-3">
-              {/* Class 1 */}
-              <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-100">
-                <div>
-                  <h3 className="font-bold text-[var(--navy-deep)]">Mathematics (O/L)</h3>
-                  <p className="text-xs text-gray-500">08:00 AM - 10:00 AM | Teacher: Mr. Kamal</p>
-                </div>
-                <button className="btn-teal text-sm py-2 px-4 shadow-sm">Join Class</button>
-              </div>
-              
-              {/* Class 2 */}
-              <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-100">
-                <div>
-                  <h3 className="font-bold text-[var(--navy-deep)]">Physics (A/L)</h3>
-                  <p className="text-xs text-gray-500">02:00 PM - 04:00 PM | Teacher: Ms. Nimali</p>
-                </div>
-                <button className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-lg cursor-not-allowed text-sm">Upcoming</button>
-              </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <p className="text-xs text-gray-500 font-bold uppercase mb-1">Enrolled</p>
+            <h3 className="text-3xl font-extrabold text-[#0f172a]">3</h3>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <p className="text-xs text-gray-500 font-bold uppercase mb-1">Avg Score</p>
+            <h3 className="text-3xl font-extrabold text-[#0f172a]">84%</h3>
+          </div>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <p className="text-xs text-gray-500 font-bold uppercase mb-1">Attendance</p>
+            <h3 className="text-3xl font-extrabold text-[#0f172a]">92%</h3>
+          </div>
+          <div className="bg-gradient-to-r from-[#0f766e] to-[#0d9488] p-6 rounded-2xl shadow-lg text-white">
+            <p className="text-xs text-teal-100 font-bold uppercase mb-1">Next Class</p>
+            <h3 className="text-xl font-extrabold">Today, 4 PM</h3>
+          </div>
+        </div>
 
-              {/* Class 3 */}
-              <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg border border-gray-100">
-                <div>
-                  <h3 className="font-bold text-[var(--navy-deep)]">English (O/L)</h3>
-                  <p className="text-xs text-gray-500">05:00 PM - 07:00 PM | Teacher: Ms. Dilani</p>
-                </div>
-                <button className="bg-gray-200 text-gray-600 font-semibold py-2 px-4 rounded-lg cursor-not-allowed text-sm">Upcoming</button>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="lg:col-span-2 space-y-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+              <div className="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                <h2 className="text-lg font-bold text-[#0f172a]">📝 Monthly Marksheet (October)</h2>
+                <button className="text-xs font-bold text-[#0f766e] bg-teal-50 px-3 py-1 rounded-full hover:bg-teal-100">Download PDF</button>
+              </div>
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="text-xs text-gray-500 uppercase bg-white">
+                    <th className="p-4 font-semibold">Subject</th>
+                    <th className="p-4 font-semibold">Exam</th>
+                    <th className="p-4 font-semibold">Marks</th>
+                    <th className="p-4 font-semibold">Grade</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {monthlyMarksheet.map((mark) => (
+                    <tr key={mark.id} className="hover:bg-gray-50">
+                      <td className="p-4 font-medium text-[#0f172a]">{mark.subject}</td>
+                      <td className="p-4 text-sm text-gray-500">{mark.exam}</td>
+                      <td className="p-4 font-bold text-[#0f766e]">{mark.marks}</td>
+                      <td className="p-4"><span className="bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded">{mark.grade}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h2 className="text-lg font-bold text-[#0f172a] mb-4">My Courses</h2>
+              <div className="space-y-4">
+                {myCourses.map((course) => (
+                  <div key={course.id} className="p-4 border border-gray-100 rounded-xl bg-gray-50 flex justify-between items-center">
+                    <div>
+                      <h3 className="font-bold text-[#0f172a]">{course.name}</h3>
+                      <p className="text-xs text-gray-500">Teacher: {course.teacher}</p>
+                    </div>
+                    <Link href="/dashboard/student/live-classes" className="btn-teal text-xs py-1.5 px-3">Join Class</Link>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Your Progress (Right Side) */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-            <div className="flex justify-between items-center mb-6">
-              <h2 className="text-lg font-bold text-[var(--navy-deep)]">Your Progress</h2>
+          <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 h-fit">
+            <h2 className="text-lg font-bold text-[#0f172a] mb-6">📅 Attendance Calendar</h2>
+            <div className="grid grid-cols-7 gap-2 mb-6">
+              {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(day => (
+                <div key={day} className="text-center text-xs font-bold text-gray-400 mb-2">{day}</div>
+              ))}
+              {attendanceData.map((status, index) => {
+                let bgClass = "bg-gray-100 text-gray-400";
+                if (status === 1) bgClass = "bg-[#0f766e] text-white"; 
+                if (status === 2) bgClass = "bg-red-500 text-white";   
+                if (status === 3) bgClass = "bg-[#d97706] text-white"; 
+                return (
+                  <div key={index} className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold ${bgClass} transition hover:scale-110 cursor-pointer`}>
+                    {index + 1}
+                  </div>
+                );
+              })}
             </div>
-            
-            {/* Circular Progress (Demo) */}
-            <div className="flex flex-col items-center justify-center mb-6">
-              <div className="w-24 h-24 rounded-full border-4 border-[var(--teal-primary)] flex items-center justify-center mb-2">
-                <span className="text-2xl font-bold text-[var(--navy-deep)]">78%</span>
-              </div>
-              <p className="text-sm text-gray-500">Overall Progress</p>
-            </div>
-
-            {/* Subject Progress Bars */}
-            <div className="space-y-3">
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1">
-                  <span className="text-gray-600">Mathematics</span>
-                  <span className="text-[var(--navy-deep)]">80%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-[var(--teal-primary)] h-2 rounded-full" style={{ width: '80%' }}></div>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1">
-                  <span className="text-gray-600">Physics</span>
-                  <span className="text-[var(--navy-deep)]">65%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-[var(--gold-accent)] h-2 rounded-full" style={{ width: '65%' }}></div>
-                </div>
-              </div>
-              <div>
-                <div className="flex justify-between text-xs font-semibold mb-1">
-                  <span className="text-gray-600">English</span>
-                  <span className="text-[var(--navy-deep)]">90%</span>
-                </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: '90%' }}></div>
-                </div>
-              </div>
+            <div className="flex justify-center gap-4 text-xs text-gray-500 font-medium border-t pt-4">
+              <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#0f766e]"></span> Present</div>
+              <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-red-500"></span> Absent</div>
+              <div className="flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-[#d97706]"></span> Late</div>
             </div>
           </div>
-
         </div>
       </main>
     </div>
